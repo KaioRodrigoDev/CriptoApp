@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, SafeAreaView, FlatList } from 'react-native';
 import Card from './components/Card';
 
 export default function App() {
@@ -7,9 +7,13 @@ export default function App() {
   const cripto = [
     {
       name: 'Bitcoin',
+      price: '$12,000.00',
+      change: '+0.00%',
     },
     {
       name: 'Ethereum',
+      price: '$12,000.00',
+      change: '+0.00%',
     }
 
   ]
@@ -18,10 +22,16 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#232630" barStyle="light-content" />
       <TextInput style={styles.TextInput} />
-      {cripto.map((item, index) => {
-        return <Card key={index} content={item.name} />
-      }
-      )}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={cripto}
+        keyExtractor={item => String(item.name)}
+        renderItem={({ item }) => (
+          <Card content={item} />
+        )}
+      />
+
+
     </SafeAreaView>
   );
 }
